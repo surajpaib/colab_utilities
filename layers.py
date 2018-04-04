@@ -16,7 +16,7 @@ def Convolution2D_Layer(layer_idx, input, filter, size, stride, trainable=False,
 
 def MaxPool_Layer(layer_idx, input, size, stride):
     channels = input.get_shape()[3]
-    logger.info('Layer {0}: Type: Pooling Stride: {1} Filter: {2}, Input Shape: {3}'.format(layer_idx, stride, str([size, size, int(channels), int(input.get_shape()[1]/ size)]), str(input.get_shape())))
+    print('Layer {0}: Type: Pooling Stride: {1} Filter: {2}, Input Shape: {3}'.format(layer_idx, stride, str([size, size, int(channels), int(input.get_shape()[1]/ size)]), str(input.get_shape())))
     return tf.nn.max_pool(input, strides=[1, stride, stride, 1], ksize=[1, size, size, 1], padding='SAME')
 
 def FC_Layer(layer_idx, input, hidden, flat=False, linear=False, trainable=False, alpha=0.1):
