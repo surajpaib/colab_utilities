@@ -11,7 +11,7 @@ def Convolution2D_Layer(layer_idx, input, filter, size, stride, trainable=False,
     # padded_input = tf.pad(input, pad_mat)
     conv = tf.nn.conv2d(input, weight, strides=[1, stride, stride, 1], padding='SAME', name=str(layer_idx)+'_conv')
     conv_bias = tf.add(conv, bias)
-    logger.info('Layer {0}: Type: Convolution Stride: {1} Filter: {2}, Input Shape: {3}'.format(layer_idx, stride, str([size, size, int(channels), filter]), str(input.get_shape())))
+    print('Layer {0}: Type: Convolution Stride: {1} Filter: {2}, Input Shape: {3}'.format(layer_idx, stride, str([size, size, int(channels), filter]), str(input.get_shape())))
     return tf.maximum(tf.multiply(alpha, conv_bias), conv_bias)
 
 def MaxPool_Layer(layer_idx, input, size, stride):
@@ -32,9 +32,9 @@ def FC_Layer(layer_idx, input, hidden, flat=False, linear=False, trainable=False
     weight = tf.Variable(tf.zeros([dim, hidden]), trainable=trainable)
     bias = tf.Variable(tf.constant(0.1, shape=[hidden]), trainable=trainable)
     ip = tf.add(tf.matmul(input_processed, weight), bias)
-    logger.info('Layer {0}: Type: Fully Connected Output:{1} Input Shape: {2}'.format(layer_idx, hidden, str(input.get_shape())))
+    print('Layer {0}: Type: Fully Connected Output:{1} Input Shape: {2}'.format(layer_idx, hidden, str(input.get_shape())))
     return tf.maximum(tf.multiply(alpha, ip), ip)
 
 def Dropout_Layer(layer_idx, input, dropput_prob):
-    logger.info('Layer {0}: Type: Dropout Rate:{1} Input Shape: {2}'.format(layer_idx, dropput_prob, str(input.get_shape())))
+    print('Layer {0}: Type: Dropout Rate:{1} Input Shape: {2}'.format(layer_idx, dropput_prob, str(input.get_shape())))
     return tf.nn.dropout(input, keep_prob=dropput_prob)
